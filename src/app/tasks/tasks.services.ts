@@ -5,6 +5,15 @@ import { type AddNewTask } from "./task/task.model";
 @Injectable({ providedIn: 'root' })
 export class TaskService {
     private tasks = DUMMY_USERS_TASKS;
+    private STORAGE_KEY = "tasks";
+
+    constructor() {
+        const tasks = localStorage.getItem(this.STORAGE_KEY);
+
+        if (tasks) {
+            this.tasks = JSON.parse(tasks);
+        }
+    }
 
     getUserTasks(userId: string) {
         return this.tasks.filter((task) => task.userId === userId);
@@ -12,6 +21,7 @@ export class TaskService {
 
     removedTask(id: string) {
         return this.tasks = this.tasks.filter((task) => task.id !== id);
+        this.saveTasksInLocalStorage();
     }
 
     addTask(newTask: AddNewTask, userId: string) {
@@ -22,6 +32,11 @@ export class TaskService {
             summary: newTask.summary,
             userId: userId
         });
+        this.saveTasksInLocalStorage();
+    }
+
+    private saveTasksInLocalStorage() {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.tasks));
     }
 
 }
