@@ -29,16 +29,7 @@ export class TasksComponent {
     this.addNewTask = true;
   }
 
-  onTaskCompletedEvent(id: string) {
-    this.taskService.removedTask(id);
-  }
-
-  onCancelAddTask() {
-    this.addNewTask = false;
-  }
-
-  onAddTaskEvent(newTask: AddNewTask) {
-    this.taskService.addTask(newTask, this.userId);
+  onClose() {
     this.addNewTask = false;
   }
 }
