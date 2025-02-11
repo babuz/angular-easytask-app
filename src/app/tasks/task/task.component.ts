@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Task } from './task.model';
-import { DatePipe } from '@angular/common';
 import { TaskService } from '../tasks.services';
 
 @Component({
